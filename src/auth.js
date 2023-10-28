@@ -1,13 +1,16 @@
-import path from 'path'
-import process from 'process'
+import path from 'path';
+import process from 'process';
 import { authenticate } from '@google-cloud/local-auth';
 import { google } from 'googleapis';
-import fs from 'fs'
-
-
+import fs from 'fs';
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/gmail.labels', 'https://www.googleapis.com/auth/gmail.send', 'https://www.googleapis.com/auth/gmail.compose'];
+const SCOPES = [
+  'https://www.googleapis.com/auth/gmail.modify',
+  'https://www.googleapis.com/auth/gmail.labels',
+  'https://www.googleapis.com/auth/gmail.send',
+  'https://www.googleapis.com/auth/gmail.compose',
+];
 
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
@@ -43,13 +46,13 @@ async function saveCredentials(client) {
 }
 
 export async function authorize() {
-  //if we want to continue with new account or new permissions.
+  // if we want to continue with new account or new permissions.
   if (process.argv[2] === '-reset') {
-    if (fs.existsSync("./src/token.json")) {
-      await fs.promises.rm("./src/token.json")
+    if (fs.existsSync('./src/token.json')) {
+      await fs.promises.rm('./src/token.json');
     }
   }
-  
+
   let client = await loadSavedCredentialsIfExist();
   if (client) {
     return client;

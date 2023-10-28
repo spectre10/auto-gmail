@@ -1,4 +1,4 @@
-import { addLabel } from "./handleLabels.js";
+import { addLabel } from './handleLabels.js';
 
 // send automated reply to a thread.
 async function sendReply(gmail, thread) {
@@ -6,13 +6,13 @@ async function sendReply(gmail, thread) {
     userId: 'me',
     id: thread.id,
     format: 'metadata',
-    metadataHeaders: ['subject', 'from', 'to']
-  })
+    metadataHeaders: ['subject', 'from', 'to'],
+  });
   const size = res.data.messages.length;
   const subject = 'Re: ' + res.data.messages[0].payload.headers[1].value;
   const from = res.data.messages[0].payload.headers[0].value;
-  const replyto = res.data.messages[size - 1].id
-  const message = 'Thanks for messaging - asdasdas'
+  const replyto = res.data.messages[size - 1].id;
+  const message = 'Thanks for messaging - asdasdas';
 
   var rawMessage = [
     'Content-Type: text/plain; charset=utf-8',
@@ -23,29 +23,28 @@ async function sendReply(gmail, thread) {
     'In-Reply-To: <' + replyto + '@mail.gmail.com>',
     'References: <' + replyto + '@mail.gmail.com>',
     '',
-    message
+    message,
   ].join('\n');
 
-  // encode message to base64. 
+  // encode message to base64.
   const encodedMessage = Buffer.from(rawMessage).toString('base64');
   let res_send = await gmail.users.messages.send({
     userId: 'me',
     requestBody: {
-      "raw": encodedMessage,
-      "threadId": thread.id,
-    }
-  })
+      raw: encodedMessage,
+      threadId: thread.id,
+    },
+  });
   // add AUTO_REPLIED label to the sent email.
-  addLabel(gmail, res_send.data.id)
+  addLabel(gmail, res_send.data.id);
 }
 
 // query the non-replied threads.
 export async function queryThreads(gmail) {
-
   //query all the replied or initiated threads by me.
   const res_rep = await gmail.users.threads.list({
     userId: 'me',
-    q: '{subject:"re:" AND from:me} OR from:me'
+    q: '{subject:"re:" AND from:me} OR from:me',
   });
 
   //query all threads.
@@ -53,8 +52,9 @@ export async function queryThreads(gmail) {
     userId: 'me',
   });
 
-  const threadsWithReplies = res_rep.data.threads === undefined ? ([]) : res_rep.data.threads;
-  const allThreads = res.data.threads === undefined ? ([]) : res.data.threads;
+  const threadsWithReplies =
+    res_rep.data.threads === undefined ? [] : res_rep.data.threads;
+  const allThreads = res.data.threads === undefined ? [] : res.data.threads;
 
   // do not reply to threads common in both threadsWithReplies and allThreads list.
   let j = 0;
