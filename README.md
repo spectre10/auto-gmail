@@ -11,21 +11,23 @@ It queries every 120 seconds.
 
 # Usage
 
-To use this app, first clone this repository with the following commnad.
+- To use this app, first clone this repository with the following commnad.
 
 ```
 $ git clone github.com/spectre10/auto-gmail
 ```
-Then cd into the directory named auto-gmail and run the following command to install all the dependencies,
+- Then cd into the directory named auto-gmail and run the following command to install all the dependencies,
 ```
 $ npm install
 ```
-Then 
-Next, to run the app,
+- Then, go to Google Cloud Console and create a new project and enable the Gmail API and specify relevant scopes.
+- And then, Go to APIs and Services -> Credentials -> CREATE CREDENTIALS and then, specify that this a installed application (Desktop app). 
+- Then download the OAuth 2.0 Client ID json file and store it in the src/ directory and rename it 'credentials.json'. 
+- Next, to run the app,
 ```
 $ npm run start
 ```
-The above command will store the account information from the first time you login via Google, and it will not ask after the first time.
+- The above command will store the account information from the first time you login via Google, and it will not ask after the first time.
 To change account or app permissions or to login again, run,
 ```
 $ npm run start-new
