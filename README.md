@@ -38,7 +38,7 @@ $ npm run start-new
   - googleapis
     - Used to query the Gmail API.
 # Architecture
-![auto-gmail](https://github.com/spectre10/auto-gmail/assets/72698233/7f429078-74ff-428e-adbf-aac266efe344)
+![auto-gmail](https://github.com/spectre10/auto-gmail/assets/72698233/b2547fce-9bd3-4ba6-8865-c7b682b0aad0)
 
 
 # Improvements
